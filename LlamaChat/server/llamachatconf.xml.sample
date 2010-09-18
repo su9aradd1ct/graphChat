@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<LlamaChatServer>
+	<!-- sets the port that the connection is to be established over -->
+	<Port value="42412" />
+	
+	<!-- defines the location of the system log file -->
+	<SysLogFile value="llamachat.log" />
+	
+	<!-- defines the location of the chat log file, leave
+		empty for current directory -->
+	<ChatLogPath value="chat_logs" />
+	
+	<!-- allows the use of administrative class users
+		"yes" means admins are allowed, "no" means they are not -->
+	<AllowAdmin value="yes" />
+	
+	<!-- the pass phrase used to verify adminitrators -->
+	<PassPhrase value="llamatest" />
+	
+	<!-- defines the location of the use listing file
+		if left out, user listing will not be exported -->
+	<UserExportFile value="users.txt" />
+	
+	<!-- allows users to create channels.
+		"yes" allows, "admins" allows only admins, "no" allows none -->
+	<AllowUserChannels value="yes" />
+	
+	<!-- defines the name of the default channel that new users will 
+		join by default when entering. -->
+	<DefaultChannel value="Lobby" />
+	
+	<!-- creates a perminent channel. An optional attirbute, pass, 
+		can be included if you wish to password protect the room -->
+	<Channel value="Admin" pass="llamaadmin" />
+	<Channel value="Help" />
+	
+	<!-- the next message will be sent to all connecting users 
+		you can use <br/> to insert a line break-->
+	<WelcomeMessage>
+		Welcome to LlamaChat Beta Test on http://www.tgpr.org!
+	</WelcomeMessage>
+</LlamaChatServer>
+

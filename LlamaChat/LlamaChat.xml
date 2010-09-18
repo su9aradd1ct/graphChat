@@ -1,0 +1,32 @@
+<project name="LlamaChat" default="jar" basedir=".">
+	<description>
+		LlamaChat Chat Room Client Applet
+	</description>
+	<!-- set global properties for this build -->
+	<property name="src" value="src" />
+	<property name="build" value="build" />
+	<property name="excludes" value="server/**" />
+	<property name="package" value="client" />
+
+	<target name="init">
+		<mkdir dir="${build}" />
+	</target>
+	
+	<target name="compile" depends="init" description="compile the sources">
+		<javac srcdir="${src}" destdir="${build}" excludes="${excludes}" optimize="yes"/>
+	</target>
+
+	<target name="jar" depends="compile" description="generate a jar">
+		<jar destfile="${package}/LlamaChat.jar" 
+				basedir="${build}" excludes="${excludes}" />
+	</target>
+
+	<target name="clean" description="clean up">
+		<delete dir="${build}/${package}" />
+	</target>
+	
+	<target name="clean_jar" description="clean jar file">
+		<delete file="${package}/LlamaChat.jar" />
+	</target>
+</project>
+

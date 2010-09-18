@@ -1,0 +1,309 @@
+README for LlamaChat-0.8
+
++-----------------------------------------------------------------+
+|           Copyright (C) 2002-2003 Joseph Monti, LlamaChat       |
+|                              countjoe@users.sourceforge.net     |
+|                                                                 |
+| This program is free software; you can redistribute it and/or   |
+| modify it under the terms of the GNU General Public License     |
+| as published by the Free Software Foundation; either version 2  |
+| of the License, or (at your option) any later version.          |
+|                                                                 |
+| This program is distributed in the hope that it will be useful, |
+| but WITHOUT ANY WARRANTY; without even the implied warranty of  |
+| MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   |
+| GNU General Public License for more details.                    |
+|                                                                 |
+| A copy of the GNU General Public License may be found in the    |
+| installation directory named "GNUGPL.txt"                       |
+|                                                                 |
++-----------------------------------------------------------------+   
+
+Table Of Contents:
+1. RELEASE NOTES	- any notes concerning this release
+2. COMPILING		- instructions on compiling (optional)
+3. INSTALLATION 	- guide to installation
+4. CONFIGURATION	- required and recommended configuration steps
+5. USAGE			- methods of invoking an using LlamaChat
+6. CHANGES			- changes and bugfixes since last release
+
+
+1. RELEASE NOTES:
+
+Any assistance in working out the bugs in this software would be
+greatly appreciated. You can submit bugs here:
+http://sourceforge.net/tracker/?atid=507489&group_id=64441&func=browse
+
+I am compiling an FAQ, so if you have any questions (even if you can
+answer them yourself, but think others may not) please contact me.
+
+To use LlamaChat you will need Sun's Java JRE v1.4 or higher.
+You can find this here: http://java.sun.com/j2se/1.4.1/download.html
+Download the appropriate package for your system, and follow the
+instructions provided by Sun. To find out what version you have
+type 'java -version' at a console.
+
+All references to folders in this document are assumed to be 
+the folder in which this file is located, unless otherwise stated.
+
+In this document I will be referencing commands that need to be executed
+at the command line. In Linux, you probably know what I'm talking about, 
+but in windows you must click Start->Run... and type 'cmd' or 'command' 
+at the prompt. Then navigate to the llamachat directory.
+
+Changes to this release can be found at the bottom of this document
+
+
+2. COMPILING:
+
+This section is only if you want to build it yourself. I provide
+jar files (a jar file is a java archive of compiled java code) for 
+the client and server so there is no need for you to build them 
+yourself unless you are changing the code. Because Java is cross-
+platform, the provided jar files will work anywhere. If you are using 
+pre-built jar files skip to INSTALLATION.
+
+To compile LlamaChat you will need Sun's SDK (Software Development Kit),
+which can be found here: http://java.sun.com/j2se/1.4.1/download.html
+
+Also, there is the option to compile using Ant, which can be 
+found here: http://jakarta.apache.org/ant/index.html
+Ant is a Java-based build tool. As you will see below, it will make
+the compilation process much easier. In theory, it is kind of like Make, 
+but without Make's wrinkles. Ant is highly recommended if you are
+going to be compiling LlamaChat.
+
+	LlamaChatServer:
+
+		If you have ant:
+
+				ant LlamaChatServer
+		
+			this compiles the server and creates a jar file
+
+		Otherwise:
+
+			create a directory called 'build', then
+			
+				javac -d build -sourcepath src src/server/LlamaChatServer.java
+
+			then
+		
+				jar -cmf src/server/LlamaChatServer.manifest \
+									server/LlamaChatServer.jar \
+									-C build server -C build common
+
+			or if you are running Linux you can do this
+			
+				./scripts/build_server.sh
+		
+			NOTE: the \ at the end of the line means a continuation of the 
+			command. It has to be all in one command to work. Make you want to 
+			get Ant?
+	
+	LlamaChat:
+
+		if you have ant:
+
+				ant LlamaChat
+
+			this compiles the server and creates a jar file
+
+		Otherwise:
+
+			create a directory called 'build', then
+				
+				javac -d build -sourcepath src src/client/LlamaChat.java
+
+			then
+		
+				jar -cf client/LlamaChat.jar -C build client -C build common
+						
+			or if you are running Linux you can do this
+			
+				./scripts/build_client.sh
+		
+
+If there are any compilation problems email them along with your
+version of the SDK and platform (Operating System) to 
+countjoe@users.sourceforge.net
+
+If you have Ant, you can run the following commands from within the
+LlamaChat directory
+
+	ant					- build the client and server from sources to jar
+	ant clean			- cleans all .class files
+	ant clean_jar		- removes jar files
+	ant javadoc			- creates javadoc information
+	ant LlamaChat		- build the client from sources to jar
+	ant LlamaChatServer	- build the server from sources to jar
+	ant -f LlamaChat.xml
+						- alternative to ant LlamaChat
+	ant -f LlamaChat.xml compile
+						- only compile the client (creates .class files only)
+	ant -f LlamaChat.xml clean 
+						- cleans used .class files
+	ant -f LlamaChatServer.xml
+						- alternative to ant LlamaChatServer
+	ant -f LlamaChatServer.xml compile
+						- only compile the server (creates .class files only)
+	ant -f LlamaChatServer.xml clean
+						- cleans used .class files
+
+
+3. INSTALLATION
+
+Because the LlamaChat client is a Java based applet that must be loaded from
+a web browser there are strict rules on where the server and client can be 
+installed. Java applets can only allowed for security reasons to create a 
+network connection with the server from which it was loaded. In other words, 
+if you want to put LlamaChat on www.xyz.com, LlamaChatServer must be running 
+on www.xyz.com and server www.xyz.com must also be running a web server 
+containing the client applet and necessary html code. At this point you
+should have two jar files, client/LlamaChat.java (the client), and 
+server/LlamaChatServer.java (the server) either precompiled from the source
+package, or self compiled.
+
+	LlamaChatServer:
+		
+		I provided a shell script for those Unix users out there.
+		Simply run './scripts/install_server.sh' which will install 
+		the server to /usr/local/llamachat and create a script
+		in /usr/bin/llamachat to start the server. If you really
+		don't want /usr/bin/llamachat you can edit the install_server.sh
+		script. Also note that the bin script will not put llamachat
+		in the background. It is recommended that it is called from
+		an init script in /etc/init.d/ for easy control.
+		
+		For all others (Windows, etc), or if you don't want to use my script,
+		copy the server folder to where you wish it to be installed. 
+		This folder contains the jar file and an example configuration file. 
+		You can put this anywhere (C:\llamachat\, /use/local/llamachat)
+		
+		NOTE: in version 1.0 there will be better windows 
+		installation/configuration support.
+
+	LlamaChat:
+
+		Copy the 'client' folder to a web hosted directory 
+		(i.e. C:\Inetpub\wwwroot, /home/httpd/htdocs). You can rename the 
+		directory or place it an subfolders. Place the following code in a web 
+		page (ex: index.html) within the copied folder. Contained within this
+		folder should now be index.html (or whatever we page you wish), LlamaChat.jar,
+		and images directory.
+
+<OBJECT 
+   classid="clsid:8AD9C840-044E-11D1-B3E9-00805F499D93"
+    width="615" height="360" 
+    codebase="http://java.sun.com/products/plugin/autodl/jinstall-1_4-windows-i586.cab#Version=1,4,0,mn">
+  <PARAM name="code" value="client/LlamaChat.class">
+  <PARAM name="archive" value="LlamaChat.jar">
+  <PARAM name="type" value="application/x-java-applet;version=1.4">
+  <PARAM name="scriptable" value="true">
+  <PARAM name="username" value="[replace with username]">
+  <PARAM name="port" value="[replace with port]">
+<COMMENT>
+<EMBED type="application/x-java-applet;version=1.4" 
+   width="615" height="360" 
+   code="client/LlamaChat.class" archive="LlamaChat.jar"
+   pluginspage="http://java.sun.com/j2se/1.4.1/download.html"
+ username="[replace with username]"
+ port="[replace with port]"
+ 	<NOEMBED>
+		No Java 1.4 plugin
+	</NOEMBED></EMBED>
+</COMMENT>
+</OBJECT>
+		
+
+4. CONFIGURATION:
+
+LlamaChat provides many options that can be configured, so the configuration
+process is very important.
+
+	LlamaChatServer:
+		
+		A necessary step is to edit the llamachatconf.xml.sample
+		file in the installation directory to your liking and
+		save as llamachatconf.xml. The server looks for this file
+		at startup and if it is not found the server will not run.
+
+		Comments on how to use the configuration file are provided
+		in the sample. It is recommended that you read README.config 
+		if you are not 100% clear on the options.
+		
+		The last important step is to make sure the chat log path is 
+		created. If not you will not be able to log chats.
+
+	LlamaChat:
+
+		From the html applet code from INSTALLATION, the username 
+		parameter is optional. This can be used to enforce a username 
+		(via a registered user database) using some kind of web 
+		scripting language. If you do not wish to enforce usernames you 
+		can remove the two lines which set the username. They are lines 
+		which start with '<PARAM name="username" ...' and 
+		'username="[replace ...' Remove the whole line. If you don't want 
+		to enforce users, remove the username lines as described above. 
+		If the username is left out it will be asked for by the applet 
+		when the it starts. 
+		
+		The html needs the following values for username, and port
+			username 	- OPTIONAL name of the connecting user, must be 
+						  dynamic on page if used!
+			port 		- the port on which the server is running
+			
+		Remember that these options are in 2 places in the html code,
+		so don't edit one and forget about the other.
+
+During configuration, be sure to use the same port for both the server and client.
+
+
+5. USAGE:
+
+	LlamaChatServer:
+	
+		As of now I do not have a simple mechanism for starting the
+		server and keeping it running. In Linux I have been successful
+		at creating a startup script in combination with a shell script
+		and can easily start/stop/restart the server. The shell script
+		to start the server is provided in server/startServer.sh. If you 
+		want the init script let me know (keep in mind it is for Gentoo Linux).
+		
+		To start the server type
+
+			java -server -jar LlamaChat.jar
+	
+		or, if you get a message "ERROR: no 'server' JVM ..."
+
+			java -jar LlamaChat.jar
+		
+		To stop the server you can kill it by any means necessary. If
+		it was started at a console and not placed in the background
+		type control-c. In windows you can control-alt-delete and end
+		the process from the task manager. There is a shutdown hook to 
+		catch when the server is killed to close up any open files and 
+		perform any last second cleanup.
+
+	LlamaChat:
+		
+		open the page containing the applet html with a Java v1.4 
+		plugin enabled browser
+
+
+6. CHANGES:
+
+	Additions and Changes:
+		- made user icons a bit smaller.
+		- doesn't prompt for channel password if there is none
+		- no longer lists existing users when joining channel
+		- disable/enable channel buttons based on connection
+		- disable create channel if user cannot create
+		- added private messaging
+		
+	Bug Fixes:
+		- fixed Join and Create button functionality problems
+		- fixed a repeat connection when invalid username error
+		- client would not deal with ports in the URL
+		- fixed log path issue
+

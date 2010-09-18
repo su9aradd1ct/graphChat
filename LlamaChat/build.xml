@@ -1,0 +1,44 @@
+<project name="build" default="jar" basedir=".">
+	<description>
+		LlamaChat Chat Room Global Build File
+	</description>
+
+	<target name="compile" description="compile the sources">
+		<ant antfile="LlamaChat.xml" target="compile" />
+		<ant antfile="LlamaChatServer.xml" target="compile" />
+	</target>
+
+	<target name="jar" depends="compile" description="generate a jar">
+		<ant antfile="LlamaChat.xml" target="jar" />
+		<ant antfile="LlamaChatServer.xml" target="jar" />
+	</target>
+
+	<target name="LlamaChat" description="build LlamaChat">
+		<ant antfile="LlamaChat.xml" target="jar" />
+	</target>
+	
+	<target name="LlamaChatServer" description="build LlamaChatServer">
+		<ant antfile="LlamaChatServer.xml" target="jar" />
+	</target>
+	
+	<target name="javadoc" description="javadoc documentation">
+		<javadoc destdir="javadoc" private="yes" version="yes" author="yes">
+			<fileset dir="src" defaultexcludes="yes">
+				<include name="client/*.java" />
+				<include name="server/*.java" />
+				<include name="common/*.java" />
+				<include name="common/sd/*.java" />
+			</fileset>
+		</javadoc>
+   	</target>
+	
+	<target name="clean" description="clean up">
+		<delete dir="build" />
+	</target>
+	
+	<target name="clean_jar" description="clean jar files">
+		<ant antfile="LlamaChat.xml" target="clean_jar" />
+		<ant antfile="LlamaChatServer.xml" target="clean_jar" />
+	</target>
+</project>
+
