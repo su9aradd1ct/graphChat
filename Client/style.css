@@ -1,5 +1,5 @@
 h1, h2, h3 {
-	font-size:12px;
+	margin:0;
 }
 
 #main {
@@ -37,19 +37,24 @@ h1, h2, h3 {
 
 textarea {
 	display:block;
-	height:4em;
+	height:60px;
 	width:100%;
+	position:absolute;
+	bottom:0;
 }
 
 .conversation {
 	width:250px;
 	margin:0;
-	padding:.5em;
 	border:1px solid #000000;
+	background:#ffffff;
+	display:inline-block;
 }
 .chats_container {
-	border:1px solid #000000;
-	width:100%;
+	width:95%;
+	height:300px;
+	margin:auto;
+	background:#AAAAAA;
 }
 .chat {
 	border:1px solid #000000;
@@ -59,9 +64,17 @@ textarea {
 	max-width:250px;
 	max-height:300px;
 	display:inline-block;
-
 	vertical-align:top;
 }
+
 .message {
+	width:98%;
+	margin:auto;
+	background:#DDDDDD;
+	border:1px solid #BBBBBB;
 	display:block;
+	font-family:Arial;
+	font-size:11px;
+	z-index:5;
+	word-wrap:break-word;
 }

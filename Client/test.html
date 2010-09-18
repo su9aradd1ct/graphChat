@@ -8,14 +8,27 @@
 	<!-- Import libs end-->
 	<link href="style.css" rel="stylesheet">
 	<script type="text/javascript">
+	var message = document.createElement('div').setAttribute('class','message');
+	var chat = document.createElement('div').setAttribute('class','chat');
+	var chats_container = document.createElement('div').setAttribute('class','chats_container');
+	var conversation = document.createElement('div').setAttribute('class','conversation');
+	
 	$(function(){
 		$("#main").resizable().draggable();
-		$('.conversation').draggable().resizable();
-		$('.conversation h1').click(function(){$(this).siblings().toggle();});
-		$('.conversation div h2').click(function(){$(this).siblings().toggle();});
-		$('.chats_container').resizable();
-		$('.chat').resizable({containment:'parent'}).draggable({containment:'parent', opacity:0.6, cancel:'.message', stack:'div'}).sortable({connectWith:'.chat',items:'div'});
-		$('.message').addClass('ui-state-default');
+		$('.conversation')
+			.draggable()
+			.resizable()
+			.resize(function(){$(this).children().first().next().css('height',$(this).height()-100)})
+			.click(function(){$(this).siblings().css('z-index',0); $(this).css('z-index',1);}); // fill the parent
+		$('.chat')
+			.resizable({containment:'parent'})
+			.draggable({containment:'parent', opacity:0.6, cancel:'.message'})
+			.sortable({connectWith:'.chat',items:'.message'})
+			.click(function(){$(this).siblings().css('z-index',0);$(this).css('z-index',1);})
+			.autoResize();
+		$('.message')
+			.mouseover(function(){$('.message'.css('z-index',0));$(this).css('z-index',1);});
+		$('textarea').keypress(function(e){if(e.keyCode=='13'){/* enter submit action*/;}});
 	});
 	</script>
 </head>
@@ -27,7 +40,7 @@
 			<input type="submit" class="submit" value="Sign In" />
 		</form>
 	</div>
-	<div class="conversation">
+	<div class="conversation" id="conv1">
 		<h1>Name</h1>
 		<div class="chats_container">
 			<div class="chat">
@@ -44,7 +57,26 @@
 				<div class="message">Hi4</div>
 			</div>
 		</div>
-			<textarea></textarea>
+		<textarea></textarea>
+	</div>
+	<div class="conversation" id="conv2">
+		<h1>Name</h1>
+		<div class="chats_container">
+			<div class="chat">
+				<h2>topic1</h2>
+				<div class="message">Hello1</div>
+				<div class="message">Hello2</div>
+			</div>
+			<div class="chat">
+				<h2>topic2</h2>
+				<div class="message">Hello3</div>
+			</div>
+			<div class="chat">
+				<h2>topic3</h2>
+				<div class="message">Hello4</div>
+			</div>
+		</div>
+		<textarea></textarea>
 	</div>
 </bodY>
 </html>
