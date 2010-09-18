@@ -1,0 +1,50 @@
+<html>
+<head>
+	<!-- Import libs start -->
+	<link href="jquery-ui.css" rel="stylesheet" type="text/css"/>
+	<script src="jquery.min.js"></script>
+	<script src="jquery-ui.min.js"></script>
+	<script src="autoresize.jquery.min.js"></script>
+	<!-- Import libs end-->
+	<link href="style.css" rel="stylesheet">
+	<script type="text/javascript">
+	$(function(){
+		$("#main").resizable().draggable();
+		$('.conversation').draggable().resizable();
+		$('.conversation h1').click(function(){$(this).siblings().toggle();});
+		$('.conversation div h2').click(function(){$(this).siblings().toggle();});
+		$('.chats_container').resizable();
+		$('.chat').resizable({containment:'parent'}).draggable({containment:'parent', opacity:0.6, cancel:'.message', stack:'div'}).sortable({connectWith:'.chat',items:'div'});
+		$('.message').addClass('ui-state-default');
+	});
+	</script>
+</head>
+<body>
+	<div id="main" class="ui-widget-content">
+		<form id="signin">
+			<label for="username">Name:</label><input type="text" name="username" id="username" /><br />
+			<label for="password">Password:</label><input type="password" name="password" id="password" />
+			<input type="submit" class="submit" value="Sign In" />
+		</form>
+	</div>
+	<div class="conversation">
+		<h1>Name</h1>
+		<div class="chats_container">
+			<div class="chat">
+				<h2>topic1</h2>
+				<div class="message">Hi1</div>
+				<div class="message">Hi2</div>
+			</div>
+			<div class="chat">
+				<h2>topic2</h2>
+				<div class="message">Hi3</div>
+			</div>
+			<div class="chat">
+				<h2>topic3</h2>
+				<div class="message">Hi4</div>
+			</div>
+		</div>
+			<textarea></textarea>
+	</div>
+</bodY>
+</html>

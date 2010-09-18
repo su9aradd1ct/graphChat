@@ -1,0 +1,67 @@
+h1, h2, h3 {
+	font-size:12px;
+}
+
+#main {
+	width:250px; height:700px;
+	margin:0; padding:1em;
+	border:1px solid #000000;
+	position:relative;
+	float:right;
+}
+
+#signin {
+	position:absolute;
+	display:block;
+	top:25%;
+}
+
+#signin label {
+	width:5em;
+	float:left;
+	text-align:right;
+	margin-right:0.5em;
+	display:block;
+	font-size:12px;
+	font-family:Arial;
+}
+
+#signin input {
+	width:150px;
+}
+
+#signin .submit{
+	width:60px;
+	padding:.5em;
+}
+
+textarea {
+	display:block;
+	height:4em;
+	width:100%;
+}
+
+.conversation {
+	width:250px;
+	margin:0;
+	padding:.5em;
+	border:1px solid #000000;
+}
+.chats_container {
+	border:1px solid #000000;
+	width:100%;
+}
+.chat {
+	border:1px solid #000000;
+	background:#FFFFFF;
+	min-width:100px;
+	min-height:100px;
+	max-width:250px;
+	max-height:300px;
+	display:inline-block;
+
+	vertical-align:top;
+}
+.message {
+	display:block;
+}
